@@ -1,7 +1,82 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MonkeyFinder.Model"
              x:Class="MonkeyFinder.View.MainPage">
 
-    
+    <CollectionView>
+        <CollectionView.ItemsSource>
+            <x:Array Type="{x:Type model:Monkey}">
+                <model:Monkey 
+                    Name="Baboon" 
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
+                    Location="Africa and Asia" />
+
+                <model:Monkey 
+                    Name="Capuchin Monkey" 
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
+                    Location="Central and South America" />
+
+                <model:Monkey 
+                    Name="Blue Monkey" 
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
+                    Location="Central and East Africa" />
+
+                <model:Monkey 
+                    Name="Squirrel Monkey" 
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/saimiri.jpg"
+                    Location="Central and South America" />
+
+                <model:Monkey 
+                    Name="Golden Lion Tamarin" 
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/tamarin.jpg"
+                    Location="Brazil" />
+
+                <model:Monkey 
+                    Name="Howler Monkey" 
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/alouatta.jpg"
+                    Location="South America" />
+
+                <model:Monkey 
+                    Name="Japanese Macaque" 
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/macasa.jpg"
+                    Location="Japan" />
+
+                <model:Monkey 
+                    Name="Mandrill" 
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/mandrill.jpg"
+                    Location="Southern Cameroon, Gabon, and Congo" />
+            </x:Array>
+        </CollectionView.ItemsSource>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="model:Monkey">
+                
+                <HorizontalStackLayout Padding="10" Spacing="10">
+                    <Image Source="{Binding Image}"
+                           HeightRequest="100"
+                           WidthRequest="100"
+                           Aspect="AspectFill"/>
+
+                    <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                        <Label Text="{Binding Name}" FontSize="24" />
+                        <Label Text="{Binding Location}" FontSize="12"/>
+                    </VerticalStackLayout>
+
+                    <!-- Optional Label combining Name and Location -->
+                    <!--
+                    <Label VerticalOptions="Center">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0} | {1}">
+                                <Binding Path="Name" />
+                                <Binding Path="Location" />
+                            </MultiBinding> 
+                        </Label.Text>
+                    </Label>
+                    -->
+                </HorizontalStackLayout>
+                
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>
