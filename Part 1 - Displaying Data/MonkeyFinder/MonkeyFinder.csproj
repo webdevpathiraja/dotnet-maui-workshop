@@ -46,4 +46,8 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Update="CommunityToolkit.Mvvm" Version="8.4.0" />
+	</ItemGroup>
 </Project>
