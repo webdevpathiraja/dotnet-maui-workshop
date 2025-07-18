@@ -1,50 +1,66 @@
 ﻿using MonkeyFinder.Services;
+using System.Diagnostics;
 
 namespace MonkeyFinder.ViewModel;
 
 public partial class MonkeysViewModel : BaseViewModel
 {
     MonkeyService monkeyService;
-
     public ObservableCollection<Monkey> Monkeys { get; } = new();
-
-    //public Command GetMonkeysCommand { get; }
+    public Command GetMonkeysCommand { get; }
 
     public MonkeysViewModel(MonkeyService monkeyService)
     {
         Title = "Monkey Finder";
         this.monkeyService = monkeyService;
-        //GetMonkeysCommand = new Command(async () => await GetMonkeysAsync());
-          
+        GetMonkeysCommand = new Command(async () => await GetMonkeysAsync());
     }
 
     async Task GetMonkeysAsync()
     {
+        Debug.WriteLine("=== GetMonkeysAsync called ===");
+
         if (IsBusy)
+        {
+            Debug.WriteLine("Already busy, returning");
             return;
-        
+        }
+
         try
         {
             IsBusy = true;
-            var monkeys = await monkeyService.GetMonkeys();
-            
-            if(Monkeys.Count != 0)
-                Monkeys.Clear();
+            Debug.WriteLine("Starting to fetch monkeys...");
 
-            foreach(var monkey in monkeys)
+            var monkeys = await monkeyService.GetMonkeys();
+            Debug.WriteLine($"Received {monkeys?.Count ?? 0} monkeys from service");
+
+            if (monkeys != null)
             {
-                Monkeys.Add(monkey);
+                if (Monkeys.Count != 0)
+                    Monkeys.Clear();
+
+                foreach (var monkey in monkeys)
+                {
+                    Debug.WriteLine($"Adding monkey: {monkey.Name}");
+                    Monkeys.Add(monkey);
+                }
+
+                Debug.WriteLine($"Total monkeys in collection: {Monkeys.Count}");
+            }
+            else
+            {
+                Debug.WriteLine("Monkeys list is null!");
             }
         }
         catch (Exception ex)
         {
-            Debug.WriteLine(ex);
+            Debug.WriteLine($"Exception in GetMonkeysAsync: {ex}");
             await Shell.Current.DisplayAlert("Error", $"Unable to load monkeys: {ex.Message}", "OK");
         }
-        finally // always executed
+        finally
         {
             IsBusy = false;
+            Debug.WriteLine("=== GetMonkeysAsync finished ===");
         }
-        
     }
 }
