@@ -7,51 +7,74 @@
     Title="{Binding Monkey.Name}"
     x:DataType="viewmodel:MonkeyDetailsViewModel">
 
-
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
         <VerticalStackLayout>
+
             <Grid ColumnDefinitions="*"
-              RowDefinitions="160,Auto">
+                  RowDefinitions="160,Auto">
 
-                <Button Text="Show on map"
-                    Command="Binding OpenMapCommand"
+                <!-- Orange background with soft corner -->
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    Padding="0"
+                    BackgroundColor="Orange"
+                    HeightRequest="160"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
+                </Frame>
+
+                <!-- Circular image with medium shadow and thick dark outline -->
+                <Border
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    HeightRequest="160"
+                    WidthRequest="160"
+                    StrokeShape="RoundRectangle 80"
                     HorizontalOptions="Center"
-                    WidthRequest="200"
-                    Margin="8"
-                    Style="{StaticResource ButtonOutline}"/>
+                    VerticalOptions="Center"
+                    Padding="0"
+                    Margin="0,80,0,0"
+                    BackgroundColor="White"
+                    Stroke=""
+                    StrokeThickness="4"
+                    Shadow="Medium">
 
+                    <Image
+                        Aspect="AspectFill"
+                        HeightRequest="160"
+                        WidthRequest="160"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding Monkey.Image}" />
+                </Border>
 
-                <BoxView
-                BackgroundColor="Orange"
-                Grid.Column="0"
-                HeightRequest="160"
-                HorizontalOptions="Fill"/>
-            <Border
-                Grid.RowSpan="2"
-                Grid.Column="0"
-                HeightRequest="160"
-                WidthRequest="160"
-                StrokeShape="RoundRectangle 80"
+            </Grid>
+
+            <!-- Show on map button -->
+            <Button
+                Text="Show on map"
+                Command="{Binding OpenMapCommand}"
+                Grid.Row="1"
                 HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Padding="0"
-                Margin="0,80,0,0">
-                <Image Aspect="AspectFill"
-                       HeightRequest="160"
-                       WidthRequest="160"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
-                       Source="{Binding Monkey.Image}"/>
-            </Border>
-        </Grid>
+                WidthRequest="200"
+                Margin="8"
+                Style="{StaticResource ButtonOutline}" />
 
+            <VerticalStackLayout Padding="10" Spacing="10">
+                <Label
+                    Text="{Binding Monkey.Location, StringFormat='Location: {0}'}"
+                    Style="{StaticResource LargeLabel}" />
 
-        <VerticalStackLayout Padding="10" Spacing="10">
-                <Label Text="{Binding Monkey.Details}"
-                       Style="{StaticResource MediumLabel}"/>
-                <Label Text="{Binding Monkey.Location, StringFormat='Location: {0}'}"
-                       Style="{StaticResource SmallLabel}"/>
-                <Label Text="{Binding Monkey.Population, StringFormat='Population: {0}'}"/>
+                <Label
+                    Text="{Binding Monkey.Details}"
+                    Style="{StaticResource MediumLabel}" />
+
+                <Label
+                    Text="{Binding Monkey.Population, StringFormat='Population: {0}'}"
+                    Style="{StaticResource MediumLabel}" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>
