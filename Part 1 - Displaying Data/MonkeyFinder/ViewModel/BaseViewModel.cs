@@ -1,6 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿namespace MonkeyFinder.ViewModel;
 
-namespace MonkeyFinder.ViewModel;
 public partial class BaseViewModel : ObservableObject
 {
     [ObservableProperty]
