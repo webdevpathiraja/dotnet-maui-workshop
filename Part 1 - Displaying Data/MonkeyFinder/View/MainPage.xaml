@@ -99,6 +99,10 @@
                         <Border HeightRequest="125" 
                                 Padding="0" 
                                 Style="{StaticResource CardView}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}"/>
+                            </Border.GestureRecognizers>
                             <Grid Padding="0"
                                   ColumnDefinitions="125, *">
                                 <Image Aspect="AspectFill"
